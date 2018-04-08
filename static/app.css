@@ -1,3 +1,5 @@
-body {
-  margin: 0;
-  padding: 0; }
+.text-muted-x {
+  color: #b5b5b5; }
+
+.list-item {
+  padding: 0.5rem 0.5rem; }

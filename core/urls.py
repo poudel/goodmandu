@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from rest_framework.authtoken import views
-from core import apis
+from rest_framework.authtoken.views import obtain_auth_token
+from core import apis, views
 
 
 router = DefaultRouter()
@@ -12,7 +12,19 @@ router.register("project-type", apis.ProjectTypeAPI)
 router.register("project-event", apis.ProjectEventAPI)
 
 
+view_patterns = ([
+    path("project/<int:pk>/",
+         views.ProjectDetail.as_view(),
+         name="project-detail"
+    ),
+    path("project/event/<int:pk>/",
+         views.ProjectEventDetail.as_view(),
+         name="project-event-detail"),
+], "core")
+
+
 urlpatterns = [
-    path("api/token/", views.obtain_auth_token),
-    path("api/", include(router.urls))
+    path("api/token/", obtain_auth_token),
+    path("api/", include(router.urls)),
+    path("", include(view_patterns)),
 ]

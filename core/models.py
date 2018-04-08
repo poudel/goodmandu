@@ -1,3 +1,4 @@
+import calendar
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
@@ -93,6 +94,7 @@ class Project(BaseModel):
         on_delete=models.CASCADE
     )
     name = models.CharField(_("name"), max_length=200, unique=True)
+    description = models.TextField(_("description"), blank=True)
     url = models.URLField(_("url"), max_length=300)
     backers = models.ManyToManyField(
         Entity,
@@ -146,6 +148,25 @@ class Project(BaseModel):
 
     def get_basic_info(self):
         return {"id": self.id, "name": self.name}
+
+    def join_year_month(self, year, month):
+        s = []
+        if year:
+            s.append(str(year))
+        else:
+            return
+
+        if month:
+            s.insert(0, calendar.month_name[month])
+        return ", ".join(s)
+
+    @property
+    def start(self):
+        return self.join_year_month(self.start_year, self.start_month)
+
+    @property
+    def end(self):
+        return self.join_year_month(self.end_year, self.end_month)
 
 
 class ProjectEvent(BaseModel):

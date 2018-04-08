@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView, ListView
 from core.models import Project, ProjectEvent
 
 
@@ -11,3 +11,11 @@ class IndexView(TemplateView):
         ctx['projects'] = Project.objects.order_by("-id")[:10]
         ctx['events'] = ProjectEvent.objects.order_by("-id")[:50]
         return ctx
+
+
+class ProjectDetail(DetailView):
+    model = Project
+
+
+class ProjectEventDetail(DetailView):
+    model = ProjectEvent
