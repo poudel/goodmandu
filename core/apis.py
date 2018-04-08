@@ -1,4 +1,4 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from core.models import (
     EntityType,
@@ -16,31 +16,26 @@ from core.serializers import (
 )
 
 
-class BaseAPIMixin:
-    permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
-
-
-class EntityTypeAPI(BaseAPIMixin, ModelViewSet):
+class EntityTypeAPI(ReadOnlyModelViewSet):
     queryset = EntityType.objects.all()
     serializer_class = EntityTypeSerializer
 
 
-class EntityAPI(BaseAPIMixin, ModelViewSet):
+class EntityAPI(ReadOnlyModelViewSet):
     queryset = Entity.objects.select_related("type", "created_by").all()
     serializer_class = EntitySerializer
 
 
-class ProjectTypeAPI(BaseAPIMixin, ModelViewSet):
+class ProjectTypeAPI(ReadOnlyModelViewSet):
     queryset = ProjectType.objects.all()
     serializer_class = ProjectTypeSerializer
 
 
-class ProjectAPI(BaseAPIMixin, ModelViewSet):
-    queryset = Project.objects.select_related("type", "created_by")\
-                              .prefetch_related("backers", "contractors").all()
+class ProjectAPI(ReadOnlyModelViewSet):
+    queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
 
-class ProjectEventAPI(ModelViewSet):
+class ProjectEventAPI(ReadOnlyModelViewSet):
     queryset = ProjectEvent.objects.all()
     serializer_class = ProjectEventSerializer

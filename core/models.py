@@ -56,6 +56,19 @@ class ProjectType(BaseModel):
         return self.name
 
 
+class ProjectStatus(BaseModel):
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("created by"),
+        null=True,
+        on_delete=models.CASCADE
+    )
+    name = models.CharField(_("name"), max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Project(BaseModel):
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -80,6 +93,12 @@ class Project(BaseModel):
     type = models.ForeignKey(
         ProjectType,
         verbose_name=_("type"),
+        on_delete=models.CASCADE
+    )
+
+    type = models.ForeignKey(
+        ProjectStatus,
+        verbose_name=_("status"),
         on_delete=models.CASCADE
     )
 
@@ -108,6 +127,9 @@ class Project(BaseModel):
     def __str__(self):
         return self.name
 
+    def get_basic_info(self):
+        return {"id": self.id, "name": self.name}
+
 
 class ProjectEvent(BaseModel):
     created_by = models.ForeignKey(
@@ -122,6 +144,7 @@ class ProjectEvent(BaseModel):
         related_name="events",
         verbose_name=_("project")
     )
+    url = models.URLField(_("url"), max_length=300)
     title = models.CharField(_("title"), max_length=300)
     description = models.TextField(_("description"), blank=True)
     occured_on = models.DateField(_("occured on"), null=True, blank=True)

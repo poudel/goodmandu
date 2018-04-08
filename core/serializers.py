@@ -36,7 +36,7 @@ class CreatedByModelSerializer(serializers.ModelSerializer):
 
 
 class EntitySerializer(CreatedByModelSerializer):
-    type = EntityTypeSerializer()
+    type = EntityTypeSerializer(read_only=True)
 
     class Meta:
         model = Entity
@@ -50,10 +50,20 @@ class ProjectTypeSerializer(serializers.ModelSerializer):
         fields = ("id", "name",)
 
 
+class ProjectBasicSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Project
+        fields = (
+            "id",
+            "name",
+        )
+
+
 class ProjectSerializer(CreatedByModelSerializer):
-    backers = EntitySerializer(many=True)
-    contractors = EntitySerializer(many=True)
-    type = ProjectTypeSerializer()
+    backers = EntitySerializer(many=True, read_only=True)
+    contractors = EntitySerializer(many=True, read_only=True)
+    type = ProjectTypeSerializer(read_only=True)
 
     class Meta:
         model = Project
@@ -72,7 +82,7 @@ class ProjectSerializer(CreatedByModelSerializer):
 
 
 class ProjectEventSerializer(CreatedByModelSerializer):
-    project = ProjectSerializer()
+    project = ProjectBasicSerializer(read_only=True)
 
     class Meta:
         model = ProjectEvent
@@ -80,6 +90,7 @@ class ProjectEventSerializer(CreatedByModelSerializer):
             "id",
             "created_by",
             "project",
+            "url",
             "title",
             "description",
             "occured_on"
