@@ -1,12 +1,17 @@
 import o from "mithril";
-import { UI } from "./ui";
+
+import {
+    UI,
+    Layout
+} from "./ui";
+
 import "./index.scss";
 
 
 class Dashboard extends UI {
 
     view (vnode) {
-	return o("div", "Welcome");
+	return o(Layout, "Welcome");
     }
 
 }
