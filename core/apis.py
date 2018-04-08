@@ -32,10 +32,11 @@ class ProjectTypeAPI(ReadOnlyModelViewSet):
 
 
 class ProjectAPI(ReadOnlyModelViewSet):
-    queryset = Project.objects.all()
+    queryset = Project.objects.select_related("type", "status", "created_by")\
+                              .prefetch_related("backers", "contractors").all()
     serializer_class = ProjectSerializer
 
 
 class ProjectEventAPI(ReadOnlyModelViewSet):
-    queryset = ProjectEvent.objects.all()
+    queryset = ProjectEvent.objects.select_related("project").all()
     serializer_class = ProjectEventSerializer

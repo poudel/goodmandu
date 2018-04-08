@@ -4,6 +4,7 @@ from core.models import (
     EntityType,
     Entity,
     ProjectType,
+    ProjectStatus,
     Project,
     ProjectEvent
 )
@@ -50,6 +51,13 @@ class ProjectTypeSerializer(serializers.ModelSerializer):
         fields = ("id", "name",)
 
 
+class ProjectStatusSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProjectStatus
+        fields = ("id", "name",)
+
+
 class ProjectBasicSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -64,6 +72,7 @@ class ProjectSerializer(CreatedByModelSerializer):
     backers = EntitySerializer(many=True, read_only=True)
     contractors = EntitySerializer(many=True, read_only=True)
     type = ProjectTypeSerializer(read_only=True)
+    status = ProjectStatusSerializer(read_only=True)
 
     class Meta:
         model = Project
@@ -75,6 +84,7 @@ class ProjectSerializer(CreatedByModelSerializer):
             "end_year",
             "end_month",
             "type",
+            "status",
             "created_by",
             "backers",
             "contractors",

@@ -21,6 +21,10 @@ class EntityType(BaseModel):
     )
     name = models.CharField(_("name"), max_length=100, unique=True)
 
+    class Meta:
+        verbose_name = _("entity type")
+        verbose_name_plural = _("entity types")
+
     def __str__(self):
         return self.name
 
@@ -39,6 +43,10 @@ class Entity(BaseModel):
         on_delete=models.CASCADE
     )
 
+    class Meta:
+        verbose_name = _("entity")
+        verbose_name_plural = _("entities")
+
     def __str__(self):
         return self.name
 
@@ -51,6 +59,10 @@ class ProjectType(BaseModel):
         on_delete=models.CASCADE
     )
     name = models.CharField(_("name"), max_length=100, unique=True)
+
+    class Meta:
+        verbose_name = _("project type")
+        verbose_name_plural = _("project types")
 
     def __str__(self):
         return self.name
@@ -65,6 +77,10 @@ class ProjectStatus(BaseModel):
     )
     name = models.CharField(_("name"), max_length=100, unique=True)
 
+    class Meta:
+        verbose_name = _("project status")
+        verbose_name_plural = _("project status")
+
     def __str__(self):
         return self.name
 
@@ -77,6 +93,7 @@ class Project(BaseModel):
         on_delete=models.CASCADE
     )
     name = models.CharField(_("name"), max_length=200, unique=True)
+    url = models.URLField(_("url"), max_length=300)
     backers = models.ManyToManyField(
         Entity,
         verbose_name=_("backers"),
@@ -96,7 +113,7 @@ class Project(BaseModel):
         on_delete=models.CASCADE
     )
 
-    type = models.ForeignKey(
+    status = models.ForeignKey(
         ProjectStatus,
         verbose_name=_("status"),
         on_delete=models.CASCADE
@@ -124,6 +141,10 @@ class Project(BaseModel):
         blank=True
     )
 
+    class Meta:
+        verbose_name = _("project")
+        verbose_name_plural = _("projects")
+
     def __str__(self):
         return self.name
 
@@ -148,6 +169,10 @@ class ProjectEvent(BaseModel):
     title = models.CharField(_("title"), max_length=300)
     description = models.TextField(_("description"), blank=True)
     occured_on = models.DateField(_("occured on"), null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("project event")
+        verbose_name_plural = _("project events")
 
     def __str__(self):
         return self.title

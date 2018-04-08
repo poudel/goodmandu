@@ -9,3 +9,5 @@ django-rest-framework = "*"
 django-autocomplete-light = "*"
 
 [dev-packages]
+ipython = "*"
+django-debug-toolbar = "*"
