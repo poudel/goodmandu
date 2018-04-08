@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm">
+            <div class="mt-3">
+                <div class="list-group list-group-flush">
+                    {% for event in events %}
+                        <div class="list-group-item" style="padding: 0.5rem 0.5rem">
+                            {{ event.title }}
+                            <p class="small text-muted">
+                                {{ event.description|truncatechars:"50" }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card mt-4">
+                <div class="card-header">
+                    Recently added projects
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for p in projects %}
+                        <li class="list-group-item">
+                            {{ p.name }}
+                            <div class="project-status">
+                                <small class="badgez badge-lightz">Type: {{ p.type.name }}</small>
+                                <small class="badgez badge-lightz">Status: {{ p.status.name }}</small>
+                            </div>
+                            <div class="project-backers">
+                                <small>Backers:</small>
+                                {% for b in p.backers.all %}
+                                    <small>{{ b }}</small>
+                                {% endfor %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

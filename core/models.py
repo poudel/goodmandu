@@ -106,19 +106,16 @@ class Project(BaseModel):
         blank=True,
         related_name="contracted_projects"
     )
-
     type = models.ForeignKey(
         ProjectType,
         verbose_name=_("type"),
         on_delete=models.CASCADE
     )
-
     status = models.ForeignKey(
         ProjectStatus,
         verbose_name=_("status"),
         on_delete=models.CASCADE
     )
-
     start_year = models.PositiveSmallIntegerField(
         _("start year"),
         null=True,
@@ -129,7 +126,6 @@ class Project(BaseModel):
         null=True,
         blank=True
     )
-
     end_year = models.PositiveSmallIntegerField(
         _("estimated end year"),
         null=True,
