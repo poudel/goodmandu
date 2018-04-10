@@ -4,13 +4,15 @@ from core.models import (
     EntityType,
     Entity,
     ProjectType,
+    ProjectStatus,
     Project,
-    ProjectEvent
+    ProjectEvent,
 )
 from core.serializers import (
     EntityTypeSerializer,
     EntitySerializer,
     ProjectTypeSerializer,
+    ProjectStatusSerializer,
     ProjectSerializer,
     ProjectEventSerializer,
 )
@@ -29,6 +31,11 @@ class EntityAPI(ReadOnlyModelViewSet):
 class ProjectTypeAPI(ReadOnlyModelViewSet):
     queryset = ProjectType.objects.all()
     serializer_class = ProjectTypeSerializer
+
+
+class ProjectStatusAPI(ReadOnlyModelViewSet):
+    queryset = ProjectStatus.objects.all()
+    serializer_class = ProjectStatusSerializer
 
 
 class ProjectAPI(ReadOnlyModelViewSet):

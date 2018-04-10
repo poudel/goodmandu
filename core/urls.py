@@ -9,6 +9,7 @@ router.register("entity", apis.EntityAPI)
 router.register("entity-type", apis.EntityTypeAPI)
 router.register("project", apis.ProjectAPI)
 router.register("project-type", apis.ProjectTypeAPI)
+router.register("project-status", apis.ProjectStatusAPI)
 router.register("project-event", apis.ProjectEventAPI)
 
 

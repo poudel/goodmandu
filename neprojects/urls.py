@@ -17,11 +17,14 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
+from django.contrib.flatpages.views import flatpage
 from core.views import IndexView
 
 
 urlpatterns = [
     path('', IndexView.as_view(), name="index"),
     path('admin/', admin.site.urls),
-    path('', include("core.urls"))
+    path('', include("core.urls")),
+    path('about/', flatpage, {'url': '/about/'}, name='about'),
+    path('contact/', flatpage, {'url': '/contact/'}, name='contact'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
