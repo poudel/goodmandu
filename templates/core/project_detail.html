@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row mt-4">
         <div class="col-sm">
-            <h4>{{ project.name }}</h4>
+            <h4>{{ project.title }}</h4>
             <div class="mt-3 pb-3 border-bottom">
                 Type: {{ project.type }} <br>
 
@@ -24,7 +24,9 @@
                     <span class="badge badge-light">{{ b }}</span>
                 {% endfor %} <br>
 
-                Website: <a href="{{ project.url }}">{{ project.url }}</a>
+                {% if project.url %}
+                    URL: <a href="{{ project.url }}">{{ project.url }}</a>
+                {% endif %}
             </div>
             <div class="mt-3">
                 {{ project.description|linebreaksbr }}

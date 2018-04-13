@@ -14,11 +14,14 @@ router.register("project-event", apis.ProjectEventAPI)
 
 
 view_patterns = ([
-    path("project/<int:pk>/",
+    path("project/",
+         views.ProjectList.as_view(),
+         name="project-list"),
+    path("project/<slug:slug>/",
          views.ProjectDetail.as_view(),
          name="project-detail"
     ),
-    path("project/event/<int:pk>/",
+    path("project/event/<slug:slug>/",
          views.ProjectEventDetail.as_view(),
          name="project-event-detail"),
 ], "core")

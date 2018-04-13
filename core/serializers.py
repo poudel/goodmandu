@@ -78,7 +78,7 @@ class ProjectSerializer(CreatedByModelSerializer):
         model = Project
         fields = (
             "id",
-            "name",
+            "title",
             "start_year",
             "start_month",
             "end_year",
@@ -103,5 +103,5 @@ class ProjectEventSerializer(CreatedByModelSerializer):
             "url",
             "title",
             "description",
-            "occured_on"
+            "occurred_on"
         )

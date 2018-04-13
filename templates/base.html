@@ -22,6 +22,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'core:project-list' %}">Projects</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'about' %}">About</a>
                         </li>
 
@@ -33,8 +37,8 @@
                             <a class="nav-link" href="{% url 'api-root' %}">API</a>
                         </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search projects" aria-label="Search">
+                    <form action="{% url 'core:project-list' %}" class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search projects" {% if request.GET.q %}value="{{ request.GET.q }}"{% endif %} aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>

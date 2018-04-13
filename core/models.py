@@ -3,6 +3,8 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django_countries.fields import CountryField
+from core.utils import get_random_string, slugify
 
 
 class BaseModel(models.Model):
@@ -13,11 +15,30 @@ class BaseModel(models.Model):
         abstract = True
 
 
+class SlugModel(BaseModel):
+    SLUG_BASE_FIELD = "title"
+    slug = models.SlugField(_("slug"), unique=True, editable=False)
+
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            slug_base = getattr(self, self.SLUG_BASE_FIELD)
+            slug = slugify(slug_base + " " + get_random_string(6, uppercase=False))
+            while self.__class__.objects.filter(slug=slug).exists():
+                slug = slugify(slug_base + " " + get_random_string(6, uppercase=False))
+            self.slug = slug
+        return super().save(*args, **kwargs)
+
+
+
 class EntityType(BaseModel):
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("created by"),
         null=True,
+        editable=False,
         on_delete=models.CASCADE
     )
     name = models.CharField(_("name"), max_length=100, unique=True)
@@ -30,11 +51,13 @@ class EntityType(BaseModel):
         return self.name
 
 
-class Entity(BaseModel):
+class Entity(SlugModel):
+    SLUG_BASE_FIELD = "name"
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("created by"),
         null=True,
+        editable=False,
         on_delete=models.CASCADE
     )
     name = models.CharField(_("name"), max_length=200, unique=True)
@@ -43,6 +66,7 @@ class Entity(BaseModel):
         verbose_name=_("type"),
         on_delete=models.CASCADE
     )
+    country = CountryField()
 
     class Meta:
         verbose_name = _("entity")
@@ -57,6 +81,7 @@ class ProjectType(BaseModel):
         settings.AUTH_USER_MODEL,
         verbose_name=_("created by"),
         null=True,
+        editable=False,
         on_delete=models.CASCADE
     )
     name = models.CharField(_("name"), max_length=100, unique=True)
@@ -74,6 +99,7 @@ class ProjectStatus(BaseModel):
         settings.AUTH_USER_MODEL,
         verbose_name=_("created by"),
         null=True,
+        editable=False,
         on_delete=models.CASCADE
     )
     name = models.CharField(_("name"), max_length=100, unique=True)
@@ -86,16 +112,17 @@ class ProjectStatus(BaseModel):
         return self.name
 
 
-class Project(BaseModel):
+class Project(SlugModel):
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("created by"),
         null=True,
+        editable=False,
         on_delete=models.CASCADE
     )
-    name = models.CharField(_("name"), max_length=200, unique=True)
+    title = models.CharField(_("title"), max_length=200, unique=True)
     description = models.TextField(_("description"), blank=True)
-    url = models.URLField(_("url"), max_length=300)
+    url = models.URLField(_("url"), max_length=300, blank=True)
     backers = models.ManyToManyField(
         Entity,
         verbose_name=_("backers"),
@@ -144,10 +171,10 @@ class Project(BaseModel):
         verbose_name_plural = _("projects")
 
     def __str__(self):
-        return self.name
+        return self.title
 
     def get_basic_info(self):
-        return {"id": self.id, "name": self.name}
+        return {"id": self.id, "title": self.title}
 
     def join_year_month(self, year, month):
         s = []
@@ -169,11 +196,12 @@ class Project(BaseModel):
         return self.join_year_month(self.end_year, self.end_month)
 
 
-class ProjectEvent(BaseModel):
+class ProjectEvent(SlugModel):
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("created by"),
         null=True,
+        editable=False,
         on_delete=models.CASCADE
     )
     project = models.ForeignKey(
@@ -182,10 +210,10 @@ class ProjectEvent(BaseModel):
         related_name="events",
         verbose_name=_("project")
     )
-    url = models.URLField(_("url"), max_length=300)
+    url = models.URLField(_("url"), max_length=300, blank=True)
     title = models.CharField(_("title"), max_length=300)
     description = models.TextField(_("description"), blank=True)
-    occured_on = models.DateField(_("occured on"), null=True, blank=True)
+    occurred_on = models.DateField(_("occurred on"), null=True, blank=True)
 
     class Meta:
         verbose_name = _("project event")

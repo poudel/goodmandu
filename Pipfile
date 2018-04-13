@@ -4,9 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
+Django = "*"
 django-rest-framework = "*"
-django-autocomplete-light = "*"
+django-countries = "*"
 
 [dev-packages]
 ipython = "*"
