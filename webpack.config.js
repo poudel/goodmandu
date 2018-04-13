@@ -12,7 +12,7 @@ module.exports = {
 	rules: [
 	    {test: /\.js/,
 	     exclude: /node_modules/,
-	     use: {loader: 'babel-loader'}
+	     use: {loader: 'script-loader'}
 	    },
 	    {test: /\.scss$/,
 	     use: ExtractTextPlugin.extract({
