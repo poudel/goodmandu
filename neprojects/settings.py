@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django.contrib.humanize',
+    'debug_toolbar',
+    'bootstrap4',
     'rest_framework',
     'rest_framework.authtoken',
     'django_countries',
@@ -57,6 +59,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware',]
+
+INTERNAL_IPS = ["127.0.0.1"]
 
 ROOT_URLCONF = 'neprojects.urls'
 

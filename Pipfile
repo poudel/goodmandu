@@ -7,6 +7,7 @@ name = "pypi"
 Django = "*"
 django-rest-framework = "*"
 django-countries = "*"
+"django-bootstrap4" = "*"
 
 [dev-packages]
 ipython = "*"

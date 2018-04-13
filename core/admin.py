@@ -43,11 +43,11 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(Entity)
 class EntityAdmin(admin.ModelAdmin):
-    list_display = ("name", "type", "country", "slug")
+    list_display = ("name", "type", "country",)
     readonly_fields = ("slug", "created_by", "created_at", "modified_at")
 
 
 @admin.register(ProjectEvent)
 class ProjectEventAdmin(admin.ModelAdmin):
-    list_display = ("title", "project", "url", "occurred_on", "slug")
+    list_display = ("title", "project", "url", "occurred_on",)
     readonly_fields = ("slug", "created_by", "created_at", "modified_at")

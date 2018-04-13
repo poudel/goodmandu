@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path, include
+from django.urls import path, re_path, include
 from django.contrib.flatpages.views import flatpage
 from core.views import IndexView
 
@@ -28,3 +28,9 @@ urlpatterns = [
     path('about/', flatpage, {'url': '/about/'}, name='about'),
     path('contact/', flatpage, {'url': '/contact/'}, name='contact'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        re_path(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
