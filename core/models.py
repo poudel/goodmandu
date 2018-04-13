@@ -32,7 +32,6 @@ class SlugModel(BaseModel):
         return super().save(*args, **kwargs)
 
 
-
 class EntityType(BaseModel):
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -165,6 +164,12 @@ class Project(SlugModel):
         null=True,
         blank=True
     )
+    completion = models.IntegerField(
+        _("estimated completion percentage"),
+        null=True,
+        blank=True,
+        editable=False
+    )
 
     class Meta:
         verbose_name = _("project")
@@ -194,6 +199,31 @@ class Project(SlugModel):
     @property
     def end(self):
         return self.join_year_month(self.end_year, self.end_month)
+
+
+class ProjectData(BaseModel):
+    # to store extra data about a project
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        related_name="extra_data",
+        verbose_name=_("project")
+    )
+    key = models.CharField(
+        _("key"),
+        max_length=50
+    )
+    value = models.CharField(
+        _("value"),
+        max_length=500
+    )
+
+    class Meta:
+        verbose_name = _("project data")
+        verbose_name_plural = _("project data")
+
+    def __str__(self):
+        return "{} - {}".format(self.key, self.value)
 
 
 class ProjectEvent(SlugModel):

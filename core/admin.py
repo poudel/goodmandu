@@ -5,7 +5,8 @@ from core.models import (
     ProjectType,
     ProjectStatus,
     Project,
-    ProjectEvent
+    ProjectEvent,
+    ProjectData
 )
 
 
@@ -16,10 +17,15 @@ admin.site.register([
 ])
 
 
+class ProjectDataInline(admin.TabularInline):
+    model = ProjectData
+
+
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     readonly_fields = ("slug", "created_by", "created_at", "modified_at")
     list_display = ("title", "type", "status", "url")
+    inlines = [ProjectDataInline]
 
     def save_model(self, request, obj, form, change):
         if not obj.created_by:

@@ -21,9 +21,12 @@ view_patterns = ([
          views.ProjectDetail.as_view(),
          name="project-detail"
     ),
-    path("project/event/<slug:slug>/",
+    path("project-event/<slug:slug>/",
          views.ProjectEventDetail.as_view(),
          name="project-event-detail"),
+    path("project-event/",
+         views.ProjectEventList.as_view(),
+         name="project-event-list"),
 ], "core")
 
 

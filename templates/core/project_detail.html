@@ -1,39 +1,62 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="row mt-4">
+    <div class="row">
         <div class="col-sm">
-            <h4>{{ project.title }}</h4>
-            <div class="mt-3 pb-3 border-bottom">
-                Type: {{ project.type }} <br>
-
-                Status: {{ project.status }} <br>
-
-                Started on: {{ project.start|default:"N/A" }} <br>
-
-                Deadline: {{ project.end|default:"N/A" }} <br>
-
-                Backers:
-                {% for b in project.backers.all %}
-                    <span class="badge badge-light">{{ b }}</span>
-                {% endfor %} <br>
-
-
-                Contractors:
-                {% for b in project.contractors.all %}
-                    <span class="badge badge-light">{{ b }}</span>
-                {% endfor %} <br>
-
-                {% if project.url %}
-                    URL: <a href="{{ project.url }}">{{ project.url }}</a>
-                {% endif %}
-            </div>
             <div class="mt-3">
-                {{ project.description|linebreaksbr }}
+                <h4>{{ project.title }}</h4>
+
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item list-item">
+                        Type: {{ project.type }}
+                    </div>
+
+                    <div class="list-group-item list-item">
+                        Status: {{ project.status }}
+                    </div>
+
+                    <div class="list-group-item list-item">
+                        Started on: {{ project.start|default:"N/A" }}
+                    </div>
+
+                    <div class="list-group-item list-item">
+                        Deadline: {{ project.end|default:"N/A" }}
+                    </div>
+
+                    <div class="list-group-item list-item">
+                        Backers:
+                        {% for b in project.backers.all %}
+                            <span class="badge badge-light">{{ b }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <div class="list-group-item list-item">
+                        Contractors:
+                        {% for b in project.contractors.all %}
+                            <span class="badge badge-light">{{ b }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <div class="list-group-item list-item">
+                        {% if project.url %}
+                            URL: <a href="{{ project.url }}">{{ project.url }}</a>
+                        {% endif %}
+                    </div>
+
+                    {% for datum in project.extra_data.all %}
+                        <div class="list-group-item list-item">
+                            {{ datum.key }}: {{ datum.value }}
+                        </div>
+                    {% endfor %}
+
+                    {% if project.description %}
+                        <div class="list-group-item list-item">
+                            {{ project.description|linebreaksbr }}
+                        </div>
+                    {% endif %}
+
+                </div>
             </div>
-        </div>
-        <div class="col-sm-5">
-            <h6>Activities</h6>
         </div>
     </div>
 {% endblock content %}

@@ -1,9 +1,61 @@
 {% extends "base.html" %}
+{% load humanize %}
+
+{% block page_title %}{{ object.title }}{% endblock page_title %}
 
 {% block content %}
     <div class="row">
         <div class="col-sm">
-asdf
+            <div class="mt-3">
+                <h4>{{ object.title }}</h4>
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item list-item">
+                        Project:
+                        <a href="{% url 'core:project-detail' object.project.slug %}">
+                            {{ object.project }}
+                        </a>
+                    </div>
+
+                    {% if object.description %}
+                        <div class="">
+                            {{ object.description }}
+                        </div>
+                    {% endif %}
+
+                    {% if object.occurred_on %}
+                        <div class="list-group-item list-item">
+                            Date: {{ object.occurred_on }}
+                        </div>
+                    {% endif %}
+
+                    {% if object.url %}
+                        <div class="list-group-item list-item">
+                            URL: <a href="{{ object.url }}">{{ object.url }}</a>
+                        </div>
+                    {% endif %}
+
+                    <div class="list-group-item list-item">
+                        Created by: {{ object.created_by.get_full_name|default:"N/A" }}
+                    </div>
+
+                    <div class="list-group-item list-item">
+                        Created:
+                        <span title="{{ object.created_at }}">
+                            {{ object.created_at|naturaltime }}
+                        </span>
+                    </div>
+
+                    <div class="list-group-item list-item">
+                        <a class="mr-4" href="{% url 'core:project-event-list' %}">
+                            View all
+                        </a>
+
+                        <a href="{% url 'core:project-event-list' %}?project={{ object.project.id }}">
+                            View all for this project
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock content %}

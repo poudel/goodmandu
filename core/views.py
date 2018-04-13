@@ -30,5 +30,26 @@ class ProjectDetail(DetailView):
     model = Project
 
 
+class ProjectEventList(ListView):
+    model = ProjectEvent
+    paginate_by = 25
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        project_id = self.request.GET.get('project')
+
+        if project_id and project_id.isnumeric():
+            self.project = Project.objects.get(id=project_id)
+            qs = qs.filter(project=self.project)
+        else:
+            self.project = None
+        return qs.order_by('-id')
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data()
+        ctx['project'] = self.project
+        return ctx
+
+
 class ProjectEventDetail(DetailView):
     model = ProjectEvent

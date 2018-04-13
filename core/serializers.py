@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from django_countries.serializer_fields import CountryField
 from core.models import (
     EntityType,
     Entity,
@@ -28,20 +29,13 @@ class EntityTypeSerializer(serializers.ModelSerializer):
         fields = ("id", "name",)
 
 
-class CreatedByModelSerializer(serializers.ModelSerializer):
-    created_by = UserSerializer(read_only=True)
-
-    def create(self, data):
-        data["created_by"] = self.context["request"].user
-        return super().create(data)
-
-
-class EntitySerializer(CreatedByModelSerializer):
+class EntitySerializer(serializers.ModelSerializer):
     type = EntityTypeSerializer(read_only=True)
+    country = CountryField(country_dict=True)
 
     class Meta:
         model = Entity
-        fields = ("id", "name", "created_by", "type")
+        fields = ("id", "name", "type", "country")
 
 
 class ProjectTypeSerializer(serializers.ModelSerializer):
@@ -64,11 +58,11 @@ class ProjectBasicSerializer(serializers.ModelSerializer):
         model = Project
         fields = (
             "id",
-            "name",
+            "title",
         )
 
 
-class ProjectSerializer(CreatedByModelSerializer):
+class ProjectSerializer(serializers.ModelSerializer):
     backers = EntitySerializer(many=True, read_only=True)
     contractors = EntitySerializer(many=True, read_only=True)
     type = ProjectTypeSerializer(read_only=True)
@@ -85,20 +79,18 @@ class ProjectSerializer(CreatedByModelSerializer):
             "end_month",
             "type",
             "status",
-            "created_by",
             "backers",
             "contractors",
         )
 
 
-class ProjectEventSerializer(CreatedByModelSerializer):
+class ProjectEventSerializer(serializers.ModelSerializer):
     project = ProjectBasicSerializer(read_only=True)
 
     class Meta:
         model = ProjectEvent
         fields = (
             "id",
-            "created_by",
             "project",
             "url",
             "title",
