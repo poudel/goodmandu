@@ -37,10 +37,18 @@
                         {% endfor %}
                     </div>
 
-                    <div class="list-group-item list-item">
-                        {% if project.url %}
+                    {% if project.url %}
+                        <div class="list-group-item list-item">
                             URL: <a href="{{ project.url }}">{{ project.url }}</a>
-                        {% endif %}
+                        </div>
+                    {% endif %}
+
+                    <div class="list-group-item list-item">
+                        Budget (Rs): {{ project.budget|default:"N/A" }}
+                    </div>
+
+                    <div class="list-group-item list-item">
+                        Employeed workers: {{ project.workers|default:"N/A" }}
                     </div>
 
                     {% for datum in project.extra_data.all %}
@@ -54,7 +62,6 @@
                             {{ project.description|linebreaksbr }}
                         </div>
                     {% endif %}
-
                 </div>
             </div>
         </div>

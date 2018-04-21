@@ -66,6 +66,8 @@ class Migration(migrations.Migration):
                 ('backers', models.ManyToManyField(blank=True, related_name='backed_projects', to='core.Entity', verbose_name='backers')),
                 ('contractors', models.ManyToManyField(blank=True, related_name='contracted_projects', to='core.Entity', verbose_name='contractors')),
                 ('created_by', models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='created by')),
+                ('budget', models.PositiveIntegerField(blank=True, null=True, verbose_name='budget')),
+                ('workers', models.PositiveIntegerField(blank=True, null=True, verbose_name='workers')),
             ],
             options={
                 'verbose_name': 'project',

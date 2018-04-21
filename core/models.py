@@ -172,6 +172,17 @@ class Project(SlugModel):
         editable=False
     )
 
+    budget = models.PositiveIntegerField(
+        _("budget"),
+        null=True,
+        blank=True
+    )
+    workers = models.PositiveIntegerField(
+        _("workers"),
+        null=True,
+        blank=True
+    )
+
     class Meta:
         verbose_name = _("project")
         verbose_name_plural = _("projects")
