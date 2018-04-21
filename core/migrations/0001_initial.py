@@ -134,6 +134,19 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'project types',
             },
         ),
+        migrations.CreateModel(
+            name='EmailSubscription',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(default=django.utils.timezone.now, editable=False)),
+                ('modified_at', models.DateTimeField(auto_now=True)),
+                ('email', models.EmailField(max_length=254, unique=True)),
+                ('is_active', models.BooleanField(default=False)),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
         migrations.AddField(
             model_name='project',
             name='status',

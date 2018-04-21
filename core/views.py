@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView, ListView
-from core.models import Project, ProjectEvent
+from django.views.generic import TemplateView, DetailView, ListView, CreateView
+from core.models import Project, ProjectEvent, EmailSubscription
+from core.forms import EmailSubscriptionForm
 
 
 class IndexView(TemplateView):
@@ -53,3 +54,8 @@ class ProjectEventList(ListView):
 
 class ProjectEventDetail(DetailView):
     model = ProjectEvent
+
+
+class EmailSubscriptionCreate(CreateView):
+    model = EmailSubscription
+    form_class = EmailSubscriptionForm
