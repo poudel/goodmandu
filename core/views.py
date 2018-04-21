@@ -21,7 +21,7 @@ class ProjectList(ListView):
         qs = super().get_queryset()
         q = self.request.GET.get('q')
 
-        if q:
+        if q is not None and len(q) > 3:
             qs = qs.filter(title__icontains=q)
         return qs.order_by('-id')
 

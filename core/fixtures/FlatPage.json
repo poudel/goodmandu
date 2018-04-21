@@ -1,0 +1,17 @@
+[
+  {
+    "model": "flatpages.flatpage",
+    "pk": 1,
+    "fields": {
+      "url": "/about/",
+      "title": "About",
+      "content": "I made this website because I wanted a central repository of information tracking progress (or lack thereof) of various development projects in Nepal.\r\n\r\nI believe that political atmosphere of our country will keep on gaining stability in the coming days. In this light, we, along with our government, also need to maintain a level of diligence towards the development efforts happening in our country.\r\n\r\nMy plan is to make this platform more collaborative in the future. I hope you find it useful.\r\n\r\nThe source code is publicly available at this [GitHub repo](https://github.com/poudel/gm).",
+      "enable_comments": false,
+      "template_name": "",
+      "registration_required": false,
+      "sites": [
+        1
+      ]
+    }
+  }
+]

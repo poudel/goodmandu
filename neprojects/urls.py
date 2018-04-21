@@ -26,7 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("core.urls")),
     path('about/', flatpage, {'url': '/about/'}, name='about'),
-    path('contact/', flatpage, {'url': '/contact/'}, name='contact'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

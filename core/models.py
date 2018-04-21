@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django_countries.fields import CountryField
-from core.utils import get_random_string, slugify
+from core.utils import get_random_string, slugify, tz_today
 
 
 class BaseModel(models.Model):
@@ -244,7 +244,7 @@ class ProjectEvent(SlugModel):
     url = models.URLField(_("url"), max_length=300, blank=True)
     title = models.CharField(_("title"), max_length=300)
     description = models.TextField(_("description"), blank=True)
-    occurred_on = models.DateField(_("occurred on"), null=True, blank=True)
+    occurred_on = models.DateField(_("occurred on"), default=tz_today)
 
     class Meta:
         verbose_name = _("project event")

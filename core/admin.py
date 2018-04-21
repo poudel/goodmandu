@@ -42,7 +42,8 @@ class ProjectAdmin(admin.ModelAdmin):
             ProjectEvent.objects.create(
                 created_by=request.user,
                 project=obj,
-                title="Added {}".format(obj.title)
+                title="Added {}".format(obj.title),
+                description="Let this begin",
             )
         return obj
 
@@ -57,3 +58,10 @@ class EntityAdmin(admin.ModelAdmin):
 class ProjectEventAdmin(admin.ModelAdmin):
     list_display = ("title", "project", "url", "occurred_on",)
     readonly_fields = ("slug", "created_by", "created_at", "modified_at")
+
+    def save_model(self, request, obj, form, change):
+        if not obj.created_by:
+            obj.created_by = request.user
+
+        super().save_model(request, obj, form, change)
+        return obj

@@ -5,6 +5,7 @@ from django.db import migrations, models
 import django.db.models.deletion
 import django.utils.timezone
 import django_countries.fields
+import core.utils
 
 
 class Migration(migrations.Migration):
@@ -96,7 +97,7 @@ class Migration(migrations.Migration):
                 ('url', models.URLField(blank=True, max_length=300, verbose_name='url')),
                 ('title', models.CharField(max_length=300, verbose_name='title')),
                 ('description', models.TextField(blank=True, verbose_name='description')),
-                ('occurred_on', models.DateField(blank=True, null=True, verbose_name='occurred on')),
+                ('occurred_on', models.DateField(default=core.utils.tz_today, verbose_name='occurred on')),
                 ('created_by', models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='created by')),
                 ('project', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='events', to='core.Project', verbose_name='project')),
             ],

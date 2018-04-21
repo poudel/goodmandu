@@ -1,7 +1,12 @@
 import string
 import secrets
 from django.utils.text import slugify as original_slugify
+from django.utils import timezone
 from core.stop_words import STOP_WORDS
+
+
+def tz_today():
+    return timezone.localtime(timezone.now()).date
 
 
 def slugify(text):
