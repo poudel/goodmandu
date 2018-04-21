@@ -1,0 +1,42 @@
+[
+  {
+    "model": "core.projecttype",
+    "pk": 1,
+    "fields": {
+      "created_at": "2018-04-14T12:08:59.963Z",
+      "modified_at": "2018-04-14T12:09:00.015Z",
+      "created_by": null,
+      "name": "Hydropower"
+    }
+  },
+  {
+    "model": "core.projecttype",
+    "pk": 2,
+    "fields": {
+      "created_at": "2018-04-14T12:09:12.092Z",
+      "modified_at": "2018-04-14T12:09:12.097Z",
+      "created_by": null,
+      "name": "Drinking Water"
+    }
+  },
+  {
+    "model": "core.projecttype",
+    "pk": 3,
+    "fields": {
+      "created_at": "2018-04-14T12:11:37.168Z",
+      "modified_at": "2018-04-14T12:11:37.173Z",
+      "created_by": null,
+      "name": "Bridge"
+    }
+  },
+  {
+    "model": "core.projecttype",
+    "pk": 4,
+    "fields": {
+      "created_at": "2018-04-14T12:11:40.805Z",
+      "modified_at": "2018-04-14T12:11:40.809Z",
+      "created_by": null,
+      "name": "Road"
+    }
+  }
+]

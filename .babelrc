@@ -1,8 +1,0 @@
-{
-  "plugins": [
-    "transform-class-display-name",
-    "transform-class-properties",
-    "transform-object-rest-spread"
-  ],
-  "presets": ["env"]
-}

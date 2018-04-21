@@ -1,0 +1,82 @@
+[
+  {
+    "model": "core.entitytype",
+    "pk": 1,
+    "fields": {
+      "created_at": "2018-04-14T12:14:07.222Z",
+      "modified_at": "2018-04-14T12:14:07.290Z",
+      "created_by": null,
+      "name": "NGO"
+    }
+  },
+  {
+    "model": "core.entitytype",
+    "pk": 2,
+    "fields": {
+      "created_at": "2018-04-14T12:14:10.255Z",
+      "modified_at": "2018-04-14T12:14:10.260Z",
+      "created_by": null,
+      "name": "INGO"
+    }
+  },
+  {
+    "model": "core.entitytype",
+    "pk": 3,
+    "fields": {
+      "created_at": "2018-04-14T12:14:16.163Z",
+      "modified_at": "2018-04-14T12:14:28.866Z",
+      "created_by": null,
+      "name": "Bank"
+    }
+  },
+  {
+    "model": "core.entitytype",
+    "pk": 4,
+    "fields": {
+      "created_at": "2018-04-14T12:14:22.246Z",
+      "modified_at": "2018-04-14T12:14:44.562Z",
+      "created_by": null,
+      "name": "Government Organization"
+    }
+  },
+  {
+    "model": "core.entitytype",
+    "pk": 5,
+    "fields": {
+      "created_at": "2018-04-14T12:15:05.900Z",
+      "modified_at": "2018-04-14T12:15:05.905Z",
+      "created_by": null,
+      "name": "Private Organization"
+    }
+  },
+  {
+    "model": "core.entitytype",
+    "pk": 6,
+    "fields": {
+      "created_at": "2018-04-14T12:15:29.947Z",
+      "modified_at": "2018-04-14T12:15:29.952Z",
+      "created_by": null,
+      "name": "Individual"
+    }
+  },
+  {
+    "model": "core.entitytype",
+    "pk": 7,
+    "fields": {
+      "created_at": "2018-04-14T12:16:33.984Z",
+      "modified_at": "2018-04-14T12:16:33.988Z",
+      "created_by": null,
+      "name": "Government"
+    }
+  },
+  {
+    "model": "core.entitytype",
+    "pk": 8,
+    "fields": {
+      "created_at": "2018-04-14T12:18:34.093Z",
+      "modified_at": "2018-04-14T12:18:34.097Z",
+      "created_by": null,
+      "name": "International Bank"
+    }
+  }
+]

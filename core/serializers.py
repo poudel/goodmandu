@@ -31,11 +31,14 @@ class EntityTypeSerializer(serializers.ModelSerializer):
 
 class EntitySerializer(serializers.ModelSerializer):
     type = EntityTypeSerializer(read_only=True)
-    country = CountryField(country_dict=True)
+    country = serializers.SerializerMethodField()
+
+    def get_country(self, entity):
+        return entity.country.name if entity.country else None
 
     class Meta:
         model = Entity
-        fields = ("id", "name", "type", "country")
+        fields = ("id", "name", "type", "country", "url")
 
 
 class ProjectTypeSerializer(serializers.ModelSerializer):

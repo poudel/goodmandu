@@ -65,7 +65,8 @@ class Entity(SlugModel):
         verbose_name=_("type"),
         on_delete=models.CASCADE
     )
-    country = CountryField()
+    country = CountryField(verbose_name=_("country"), blank=True)
+    url = models.URLField(_("url"), blank=True)
 
     class Meta:
         verbose_name = _("entity")
