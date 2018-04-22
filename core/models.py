@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django_countries.fields import CountryField
+from taggit.managers import TaggableManager
 from core.utils import get_random_string, slugify, tz_today
 
 
@@ -182,6 +183,7 @@ class Project(SlugModel):
         null=True,
         blank=True
     )
+    tags = TaggableManager()
 
     class Meta:
         verbose_name = _("project")
@@ -256,6 +258,7 @@ class ProjectEvent(SlugModel):
     title = models.CharField(_("title"), max_length=300)
     description = models.TextField(_("description"), blank=True)
     occurred_on = models.DateField(_("occurred on"), default=tz_today)
+    tags = TaggableManager()
 
     class Meta:
         verbose_name = _("project event")

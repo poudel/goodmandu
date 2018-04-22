@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_countries',
+    'taggit',
     'core',
 ]
 
@@ -142,3 +143,5 @@ REST_FRAMEWORK = {
         'user': '30/min'
     }
 }
+
+TAGGIT_CASE_INSENSITIVE = True

@@ -15,12 +15,22 @@
                             <div class="small text-muted">
                                 {{ event.description|truncatechars:"60" }}
                             </div>
-                            <div class="text-muted-x">
+
+                            <div class="text-muted-x small">
+                                {% with tags=event.tags.all %}
+                                    {% for tag in tags %}
+                                        <span class="badge badge-light">
+                                            {{ tag }}
+                                        </span>
+                                    {% endfor %}
+                                {% endwith %}
+
                                 <small>
-                                    On
+                                    on
                                     <a class="text-muted-x" href="{% url 'core:project-detail' event.project.slug %}"><strong>{{ event.project }}</strong></a>
                                     by {{ event.created_by.get_full_name }}
                                 </small>
+
                             </div>
                         </div>
                     {% endfor %}

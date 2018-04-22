@@ -8,6 +8,7 @@ Django = "*"
 django-rest-framework = "*"
 django-countries = "*"
 "django-bootstrap4" = "*"
+django-taggit = "*"
 
 [dev-packages]
 ipython = "*"
