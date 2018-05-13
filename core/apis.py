@@ -1,5 +1,4 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from core.models import (
     EntityType,
     Entity,
@@ -24,8 +23,9 @@ class EntityTypeAPI(ReadOnlyModelViewSet):
 
 
 class EntityAPI(ReadOnlyModelViewSet):
-    queryset = Entity.objects.select_related("type", "created_by").all()
+    queryset = Entity.objects.select_related("type", "created_by").order_by('-id')
     serializer_class = EntitySerializer
+    ordering_fields = ['id']
 
 
 class ProjectTypeAPI(ReadOnlyModelViewSet):
@@ -39,11 +39,16 @@ class ProjectStatusAPI(ReadOnlyModelViewSet):
 
 
 class ProjectAPI(ReadOnlyModelViewSet):
-    queryset = Project.objects.select_related("type", "status", "created_by")\
-                              .prefetch_related("backers", "contractors").all()
     serializer_class = ProjectSerializer
+    ordering_fields = ['id']
+    queryset = Project.objects.select_related(
+        "type", "status", "created_by"
+    ).prefetch_related(
+        "backers", "contractors", "extra_data"
+    ).order_by('-id')
 
 
 class ProjectEventAPI(ReadOnlyModelViewSet):
-    queryset = ProjectEvent.objects.select_related("project").all()
+    queryset = ProjectEvent.objects.select_related("project").order_by('-id')
     serializer_class = ProjectEventSerializer
+    ordering_fields = ['id']
