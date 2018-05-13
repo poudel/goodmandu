@@ -6,7 +6,7 @@ from core.stop_words import STOP_WORDS
 
 
 def tz_today():
-    return timezone.localtime(timezone.now()).date
+    return timezone.localtime(timezone.now()).date()
 
 
 def slugify(text):

@@ -23,7 +23,7 @@ from core.views import IndexView
 
 urlpatterns = [
     path('', IndexView.as_view(), name="index"),
-    path('admin/', admin.site.urls),
+    path(settings.ADMIN_URL, admin.site.urls),
     path('', include("core.urls")),
     path('about/', flatpage, {'url': '/about/'}, name='about'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
