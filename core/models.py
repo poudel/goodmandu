@@ -183,7 +183,7 @@ class Project(SlugModel):
         null=True,
         blank=True
     )
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     class Meta:
         verbose_name = _("project")
