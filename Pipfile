@@ -9,7 +9,10 @@ django-rest-framework = "*"
 django-countries = "*"
 "django-bootstrap4" = "*"
 django-taggit = "*"
+gunicorn = "*"
 
 [dev-packages]
 ipython = "*"
 django-debug-toolbar = "*"
+"fabric3" = "*"
+gitpython = "*"
