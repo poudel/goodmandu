@@ -1,62 +1,72 @@
 [
-  {
+{
     "model": "core.projectstatus",
     "pk": 1,
     "fields": {
-      "created_at": "2018-04-14T12:12:47.088Z",
-      "modified_at": "2018-04-14T12:12:47.109Z",
-      "created_by": null,
-      "name": "Started"
+        "created_at": "2018-04-14T12:12:47.088Z",
+        "modified_at": "2018-04-14T12:12:47.109Z",
+        "created_by": null,
+        "name": "Started"
     }
-  },
-  {
+},
+{
     "model": "core.projectstatus",
     "pk": 2,
     "fields": {
-      "created_at": "2018-04-14T12:13:09.960Z",
-      "modified_at": "2018-04-14T12:13:09.964Z",
-      "created_by": null,
-      "name": "Slow Progress"
+        "created_at": "2018-04-14T12:13:09.960Z",
+        "modified_at": "2018-04-14T12:13:09.964Z",
+        "created_by": null,
+        "name": "Slow Progress"
     }
-  },
-  {
+},
+{
     "model": "core.projectstatus",
     "pk": 3,
     "fields": {
-      "created_at": "2018-04-14T12:13:13.824Z",
-      "modified_at": "2018-04-14T12:13:13.828Z",
-      "created_by": null,
-      "name": "Progress"
+        "created_at": "2018-04-14T12:13:13.824Z",
+        "modified_at": "2018-04-14T12:13:13.828Z",
+        "created_by": null,
+        "name": "Progress"
     }
-  },
-  {
+},
+{
     "model": "core.projectstatus",
     "pk": 4,
     "fields": {
-      "created_at": "2018-04-14T12:13:22.533Z",
-      "modified_at": "2018-04-14T12:13:22.537Z",
-      "created_by": null,
-      "name": "Rapid Progress"
+        "created_at": "2018-04-14T12:13:22.533Z",
+        "modified_at": "2018-04-14T12:13:22.537Z",
+        "created_by": null,
+        "name": "Rapid Progress"
     }
-  },
-  {
+},
+{
     "model": "core.projectstatus",
     "pk": 5,
     "fields": {
-      "created_at": "2018-04-14T12:13:46.458Z",
-      "modified_at": "2018-04-14T12:13:46.462Z",
-      "created_by": null,
-      "name": "Halted"
+        "created_at": "2018-04-14T12:13:46.458Z",
+        "modified_at": "2018-04-14T12:13:46.462Z",
+        "created_by": null,
+        "name": "Halted"
     }
-  },
-  {
+},
+{
     "model": "core.projectstatus",
     "pk": 6,
     "fields": {
-      "created_at": "2018-04-14T12:13:51.628Z",
-      "modified_at": "2018-04-14T12:13:51.632Z",
-      "created_by": null,
-      "name": "Finished"
+        "created_at": "2018-04-14T12:13:51.628Z",
+        "modified_at": "2018-05-16T15:55:21.376Z",
+        "created_by": null,
+        "name": "Complete"
     }
-  }
+},
+{
+    "model": "core.projectstatus",
+    "pk": 7,
+    "fields": {
+        "created_at": "2018-05-16T15:55:07.067Z",
+        "modified_at": "2018-05-16T15:55:07.147Z",
+        "created_by": null,
+        "name": "Almost Complete"
+    }
+}
 ]
