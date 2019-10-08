@@ -1,12 +1,5 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet
-from core.models import (
-    EntityType,
-    Entity,
-    ProjectType,
-    ProjectStatus,
-    Project,
-    ProjectEvent,
-)
+from core.models import EntityType, Entity, ProjectType, ProjectStatus, Project, ProjectEvent
 from core.serializers import (
     EntityTypeSerializer,
     EntitySerializer,
@@ -41,11 +34,11 @@ class ProjectStatusAPI(ReadOnlyModelViewSet):
 class ProjectAPI(ReadOnlyModelViewSet):
     serializer_class = ProjectSerializer
     ordering_fields = ['id']
-    queryset = Project.objects.select_related(
-        "type", "status", "created_by"
-    ).prefetch_related(
-        "backers", "contractors", "extra_data"
-    ).order_by('-id')
+    queryset = (
+        Project.objects.select_related("type", "status", "created_by")
+        .prefetch_related("backers", "contractors", "extra_data")
+        .order_by('-id')
+    )
 
 
 class ProjectEventAPI(ReadOnlyModelViewSet):

@@ -6,15 +6,11 @@ from core.models import (
     ProjectStatus,
     Project,
     ProjectEvent,
-    ProjectData
+    ProjectData,
 )
 
 
-admin.site.register([
-    EntityType,
-    ProjectType,
-    ProjectStatus,
-])
+admin.site.register([EntityType, ProjectType, ProjectStatus])
 
 
 class ProjectDataInline(admin.TabularInline):
@@ -50,13 +46,13 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(Entity)
 class EntityAdmin(admin.ModelAdmin):
-    list_display = ("name", "type", "country",)
+    list_display = ("name", "type", "country")
     readonly_fields = ("slug", "created_by", "created_at", "modified_at")
 
 
 @admin.register(ProjectEvent)
 class ProjectEventAdmin(admin.ModelAdmin):
-    list_display = ("title", "project", "url", "occurred_on",)
+    list_display = ("title", "project", "url", "occurred_on")
     readonly_fields = ("slug", "created_by", "created_at", "modified_at")
 
     def save_model(self, request, obj, form, change):

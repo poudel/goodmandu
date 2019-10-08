@@ -13,21 +13,19 @@ router.register("project-status", apis.ProjectStatusAPI)
 router.register("project-event", apis.ProjectEventAPI)
 
 
-view_patterns = ([
-    path("project/",
-         views.ProjectList.as_view(),
-         name="project-list"),
-    path("project/<slug:slug>/",
-         views.ProjectDetail.as_view(),
-         name="project-detail"
-    ),
-    path("project-event/<slug:slug>/",
-         views.ProjectEventDetail.as_view(),
-         name="project-event-detail"),
-    path("project-event/",
-         views.ProjectEventList.as_view(),
-         name="project-event-list"),
-], "core")
+view_patterns = (
+    [
+        path("project/", views.ProjectList.as_view(), name="project-list"),
+        path("project/<slug:slug>/", views.ProjectDetail.as_view(), name="project-detail"),
+        path(
+            "project-event/<slug:slug>/",
+            views.ProjectEventDetail.as_view(),
+            name="project-event-detail",
+        ),
+        path("project-event/", views.ProjectEventList.as_view(), name="project-event-list"),
+    ],
+    "core",
+)
 
 
 urlpatterns = [

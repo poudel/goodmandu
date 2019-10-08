@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.postgres import JSONField
 from django_countries.fields import CountryField
 from taggit.managers import TaggableManager
 from core.utils import get_random_string, slugify, tz_today
@@ -39,7 +40,7 @@ class EntityType(BaseModel):
         verbose_name=_("created by"),
         null=True,
         editable=False,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     name = models.CharField(_("name"), max_length=100, unique=True)
 
@@ -58,14 +59,10 @@ class Entity(SlugModel):
         verbose_name=_("created by"),
         null=True,
         editable=False,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     name = models.CharField(_("name"), max_length=200, unique=True)
-    type = models.ForeignKey(
-        EntityType,
-        verbose_name=_("type"),
-        on_delete=models.CASCADE
-    )
+    type = models.ForeignKey(EntityType, verbose_name=_("type"), on_delete=models.CASCADE)
     country = CountryField(verbose_name=_("country"), blank=True)
     url = models.URLField(_("url"), blank=True)
 
@@ -83,7 +80,7 @@ class ProjectType(BaseModel):
         verbose_name=_("created by"),
         null=True,
         editable=False,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     name = models.CharField(_("name"), max_length=100, unique=True)
 
@@ -101,7 +98,7 @@ class ProjectStatus(BaseModel):
         verbose_name=_("created by"),
         null=True,
         editable=False,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     name = models.CharField(_("name"), max_length=100, unique=True)
 
@@ -119,71 +116,27 @@ class Project(SlugModel):
         verbose_name=_("created by"),
         null=True,
         editable=False,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     title = models.CharField(_("title"), max_length=200, unique=True)
     description = models.TextField(_("description"), blank=True)
     url = models.URLField(_("url"), max_length=300, blank=True)
     backers = models.ManyToManyField(
-        Entity,
-        verbose_name=_("backers"),
-        blank=True,
-        related_name="backed_projects"
+        Entity, verbose_name=_("backers"), blank=True, related_name="backed_projects"
     )
     contractors = models.ManyToManyField(
-        Entity,
-        verbose_name=_("contractors"),
-        blank=True,
-        related_name="contracted_projects"
+        Entity, verbose_name=_("contractors"), blank=True, related_name="contracted_projects"
     )
-    type = models.ForeignKey(
-        ProjectType,
-        verbose_name=_("type"),
-        on_delete=models.CASCADE
-    )
-    status = models.ForeignKey(
-        ProjectStatus,
-        verbose_name=_("status"),
-        on_delete=models.CASCADE
-    )
-    start_year = models.PositiveSmallIntegerField(
-        _("start year"),
-        null=True,
-        blank=True
-    )
-    start_month = models.PositiveSmallIntegerField(
-        _("start month"),
-        null=True,
-        blank=True
-    )
-    end_year = models.PositiveSmallIntegerField(
-        _("estimated end year"),
-        null=True,
-        blank=True
-    )
-    end_month = models.PositiveSmallIntegerField(
-        _("estimated end month"),
-        null=True,
-        blank=True
-    )
-    completion = models.IntegerField(
-        _("estimated completion percentage"),
-        null=True,
-        blank=True,
-        editable=False
-    )
-
-    budget = models.PositiveIntegerField(
-        _("budget"),
-        null=True,
-        blank=True
-    )
-    workers = models.PositiveIntegerField(
-        _("workers"),
-        null=True,
-        blank=True
-    )
+    type = models.ForeignKey(ProjectType, verbose_name=_("type"), on_delete=models.CASCADE)
+    status = models.ForeignKey(ProjectStatus, verbose_name=_("status"), on_delete=models.CASCADE)
     tags = TaggableManager(blank=True)
+    data = JSONField(
+        default=dict,
+        null=True,
+        blank=True,
+        verbose_name=_("data"),
+        help_text=_("any data related to this project"),
+    )
 
     class Meta:
         verbose_name = _("project")
@@ -191,9 +144,6 @@ class Project(SlugModel):
 
     def __str__(self):
         return self.title
-
-    def get_basic_info(self):
-        return {"id": self.id, "title": self.title}
 
     def join_year_month(self, year, month):
         s = []
@@ -215,49 +165,22 @@ class Project(SlugModel):
         return self.join_year_month(self.end_year, self.end_month)
 
 
-class ProjectData(BaseModel):
-    # to store extra data about a project
-    project = models.ForeignKey(
-        Project,
-        on_delete=models.CASCADE,
-        related_name="extra_data",
-        verbose_name=_("project")
-    )
-    key = models.CharField(
-        _("key"),
-        max_length=50
-    )
-    value = models.CharField(
-        _("value"),
-        max_length=500
-    )
-
-    class Meta:
-        verbose_name = _("project data")
-        verbose_name_plural = _("project data")
-
-    def __str__(self):
-        return "{} - {}".format(self.key, self.value)
-
-
 class ProjectEvent(SlugModel):
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("created by"),
         null=True,
         editable=False,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     project = models.ForeignKey(
-        Project,
-        on_delete=models.CASCADE,
-        related_name="events",
-        verbose_name=_("project")
+        Project, on_delete=models.CASCADE, related_name="events", verbose_name=_("project")
     )
     url = models.URLField(_("url"), max_length=300, blank=True)
     title = models.CharField(_("title"), max_length=300)
     description = models.TextField(_("description"), blank=True)
     occurred_on = models.DateField(_("occurred on"), default=tz_today)
+    data = JSONField(default=dict, null=True, blank=True)
     tags = TaggableManager()
 
     class Meta:

@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from django_countries.serializer_fields import CountryField
 from core.models import (
     EntityType,
     Entity,
@@ -8,7 +7,7 @@ from core.models import (
     ProjectStatus,
     Project,
     ProjectEvent,
-    ProjectData
+    ProjectData,
 )
 
 
@@ -24,10 +23,9 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class EntityTypeSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = EntityType
-        fields = ("id", "name",)
+        fields = ("id", "name")
 
 
 class EntitySerializer(serializers.ModelSerializer):
@@ -43,31 +41,24 @@ class EntitySerializer(serializers.ModelSerializer):
 
 
 class ProjectTypeSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = ProjectType
-        fields = ("id", "name",)
+        fields = ("id", "name")
 
 
 class ProjectStatusSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = ProjectStatus
-        fields = ("id", "name",)
+        fields = ("id", "name")
 
 
 class ProjectBasicSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Project
-        fields = (
-            "id",
-            "title",
-        )
+        fields = ("id", "title")
 
 
 class ProjectDataSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = ProjectData
         fields = ("key", "value")
@@ -85,15 +76,11 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "title",
-            "start_year",
-            "start_month",
-            "end_year",
-            "end_month",
             "type",
             "status",
             "backers",
             "contractors",
-            "extra_data"
+            "extra_data",
         )
 
 
@@ -102,11 +89,4 @@ class ProjectEventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProjectEvent
-        fields = (
-            "id",
-            "project",
-            "url",
-            "title",
-            "description",
-            "occurred_on"
-        )
+        fields = ("id", "project", "url", "title", "description", "occurred_on")

@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView, ListView, CreateView
 from core.models import Project, ProjectEvent, EmailSubscription
 from core.forms import EmailSubscriptionForm
@@ -9,12 +8,15 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx['projects'] = Project.objects.select_related(
-            'type').prefetch_related('backers').order_by("-id")[:20]
+        ctx['projects'] = (
+            Project.objects.select_related('type').prefetch_related('backers').order_by("-id")[:20]
+        )
 
-        ctx['events'] = ProjectEvent.objects.select_related(
-            'project', 'created_by'
-        ).prefetch_related('tags').order_by("-occurred_on")[:50]
+        ctx['events'] = (
+            ProjectEvent.objects.select_related('project', 'created_by')
+            .prefetch_related('tags')
+            .order_by("-occurred_on")[:50]
+        )
         return ctx
 
 
