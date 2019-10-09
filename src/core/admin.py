@@ -1,27 +1,14 @@
 from django.contrib import admin
-from core.models import (
-    EntityType,
-    Entity,
-    ProjectType,
-    ProjectStatus,
-    Project,
-    ProjectEvent,
-    ProjectData,
-)
+from core.models import EntityType, Entity, ProjectType, ProjectStatus, Project, ProjectEvent
 
 
 admin.site.register([EntityType, ProjectType, ProjectStatus])
-
-
-class ProjectDataInline(admin.TabularInline):
-    model = ProjectData
 
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     readonly_fields = ("slug", "created_by", "created_at", "modified_at")
     list_display = ("title", "type", "status", "url")
-    inlines = [ProjectDataInline]
 
     def save_model(self, request, obj, form, change):
         if not obj.created_by:

@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load render_bundle from webpack_loader %}
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -7,53 +9,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'app.css' %}">
+        {% render_bundle 'main' 'css' %}
         <title>{% block page_title %}{{ page_title }}{% endblock page_title %} - {{ SITE_NAME }}</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="/">GM</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'core:project-list' %}">Projects</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'core:project-event-list' %}">Activity</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}">About</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'todo' %}">Todo</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'api-root' %}">API</a>
-                        </li>
-                    </ul>
-                    <form action="{% url 'core:project-list' %}" class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" name="q" type="search" placeholder="Type at least 3 characters" {% if request.GET.q %}value="{{ request.GET.q }}"{% endif %} aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-        <div class="container mb-5">
+        <div class="container mx-auto">
+            <a class="navbar-brand" href="/">
+                <h1 class="text-2xl"> {{ SITE_NAME }} </h1>
+            </a>
+        </div>
+        <br>
+        <div class="container mx-auto">
             {% block content %}
             {% endblock content %}
         </div>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>

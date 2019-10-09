@@ -7,7 +7,6 @@ from core.models import (
     ProjectStatus,
     Project,
     ProjectEvent,
-    ProjectData,
 )
 
 
@@ -58,18 +57,11 @@ class ProjectBasicSerializer(serializers.ModelSerializer):
         fields = ("id", "title")
 
 
-class ProjectDataSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProjectData
-        fields = ("key", "value")
-
-
 class ProjectSerializer(serializers.ModelSerializer):
     backers = EntitySerializer(many=True, read_only=True)
     contractors = EntitySerializer(many=True, read_only=True)
     type = ProjectTypeSerializer(read_only=True)
     status = ProjectStatusSerializer(read_only=True)
-    extra_data = ProjectDataSerializer(read_only=True, many=True)
 
     class Meta:
         model = Project
@@ -80,7 +72,6 @@ class ProjectSerializer(serializers.ModelSerializer):
             "status",
             "backers",
             "contractors",
-            "extra_data",
         )
 
 

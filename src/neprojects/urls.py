@@ -17,20 +17,20 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, re_path, include
-from django.contrib.flatpages.views import flatpage
+from django.views.generic import TemplateView
 from core.views import IndexView
 
 
 urlpatterns = [
     path('', IndexView.as_view(), name="index"),
+    # path('', TemplateView.as_view(template_name="base.html")),
     path(settings.ADMIN_URL, admin.site.urls),
     path('', include("core.urls")),
-    path('about/', flatpage, {'url': '/about/'}, name='about'),
-    path('todo/', flatpage, {'url': '/todo/'}, name='todo'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns = [
-        re_path(r'^__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
+
+# if settings.DEBUG:
+#     import debug_toolbar
+#     urlpatterns = [
+#         re_path(r'^__debug__/', include(debug_toolbar.urls)),
+#     ] + urlpatterns

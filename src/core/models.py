@@ -3,7 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.postgres import JSONField
+from django.contrib.postgres.fields import JSONField
 from django_countries.fields import CountryField
 from taggit.managers import TaggableManager
 from core.utils import get_random_string, slugify, tz_today
@@ -158,11 +158,11 @@ class Project(SlugModel):
 
     @property
     def start(self):
-        return self.join_year_month(self.start_year, self.start_month)
+        return self.join_year_month(self.data.get("start_year"), self.data.get("start_month"))
 
     @property
     def end(self):
-        return self.join_year_month(self.end_year, self.end_month)
+        return self.join_year_month(self.data.get("end_year"), self.data.get("end_month"))
 
 
 class ProjectEvent(SlugModel):

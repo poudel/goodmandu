@@ -14,6 +14,8 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+PROJECT_ROOT = os.path.dirname(BASE_DIR)
+ASSETS_DIR = os.path.join(PROJECT_ROOT, 'assets')
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django.contrib.humanize',
-    'bootstrap4',
+    'webpack_loader',
     'rest_framework',
     'rest_framework.authtoken',
     'django_countries',
@@ -95,7 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Kathmandu'
+TIME_ZONE = 'Europe/Berlin'
 
 USE_I18N = True
 
@@ -106,17 +108,18 @@ USE_TZ = True
 
 # MEDIA
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, "media/")
 MEDIA_URL = "/media/"
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(os.path.join(BASE_DIR, "staticfiles/"))
+STATIC_ROOT = os.path.join(os.path.join(PROJECT_ROOT, "staticfiles/"))
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static/")]
+STATICFILES_DIRS = [ASSETS_DIR]
 
 
 LOGGING = {
@@ -151,3 +154,15 @@ REST_FRAMEWORK = {
 TAGGIT_CASE_INSENSITIVE = True
 
 SITE_NAME = "Site Name"
+
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'webpack_bundles/',  # must end with slash
+        'STATS_FILE': os.path.join(ASSETS_DIR, 'webpack-stats.json'),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': [r'.+\.hot-update.js', r'.+\.map'],
+    }
+}

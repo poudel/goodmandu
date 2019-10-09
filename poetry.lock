@@ -91,6 +91,14 @@ Django = ">=1.11"
 
 [[package]]
 category = "main"
+description = "Transparently use webpack with django"
+name = "django-webpack-loader"
+optional = false
+python-versions = "*"
+version = "0.6.0"
+
+[[package]]
+category = "main"
 description = "Web APIs for Django, made easy."
 name = "djangorestframework"
 optional = false
@@ -272,7 +280,7 @@ python-versions = "*"
 version = "0.1.7"
 
 [metadata]
-content-hash = "3d87ebf144bc28c46cb173bcde7d9849af7aac917ae46c2752c29f8e70f664ab"
+content-hash = "fbd46b723310712db97228f36e9935841a10b559888fbc233063f61dd90c5847"
 python-versions = "^3.7"
 
 [metadata.hashes]
@@ -285,6 +293,7 @@ django-countries = ["1cefad9ec804d6a0318b91c5394b5aef00336755928f44d0a6420507719
 django-debug-toolbar = ["17c53cd6bf4e7d69902aedf9a1d26c5d3b7369b54c5718744704f27b5a72f35d", "9a23ada2e43cd989195db3c18710b5d7451134a0d48127ab64c1d2ad81700342"]
 django-rest-framework = ["47a8f496fa69e3b6bd79f68dd7a1527d907d6b77f009e9db7cf9bb21cc565e4a"]
 django-taggit = ["01bf163f66f385de3777378f43338aba93aae8673891d8ba9a20695b2ffb8e10", "c13dfc1808a3084b64898e591af1d2f49b672d108388654804b170ee0ac5caf0"]
+django-webpack-loader = ["60bab6b9a037a5346fad12d2a70a6bc046afb33154cf75ed640b93d3ebd5f520", "970b968c2a8975fb7eff56a3bab5d0d90d396740852d1e0c50c5cfe2b824199a"]
 djangorestframework = ["5488aed8f8df5ec1d70f04b2114abc52ae6729748a176c453313834a9ee179c8", "dc81cbf9775c6898a580f6f1f387c4777d12bd87abf0f5406018d32ccae71090"]
 gunicorn = ["aa8e0b40b4157b36a5df5e599f45c9c76d6af43845ba3b3b0efe2c70473c2471", "fa2662097c66f920f53f70621c6c58ca4a3c4d3434205e608e121b5b3b71f4f3"]
 ipython = ["c4ab005921641e40a68e405e286e7a1fcc464497e14d81b6914b4fd95e5dee9b", "dd76831f065f17bddd7eaa5c781f5ea32de5ef217592cf019e34043b56895aa1"]

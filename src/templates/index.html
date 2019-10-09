@@ -4,69 +4,11 @@
 {% block page_title %}Home Page{% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-sm">
-            <div class="mt-3">
-                <div class="list-group list-group-flush">
-                    {% for event in events %}
-                        <div class="list-group-item list-item">
-                            <small class="text-muted float-right" title="{{ event.created_at }}">
-                                {{ event.created_at|naturaltime }}
-                            </small>
-                            <a class="text-dark" href="{% url 'core:project-event-detail' event.slug %}">{{ event.title }}</a>
-                            <div class="small text-muted">
-                                {{ event.description|truncatechars:"60" }}
-                            </div>
-
-                            <div class="text-muted-x small">
-                                {% with tags=event.tags.all %}
-                                    {% for tag in tags %}
-                                        <span class="badge badge-light">
-                                            {{ tag }}
-                                        </span>
-                                    {% endfor %}
-                                {% endwith %}
-
-                                <small>
-                                    on
-                                    <a class="text-muted-x" href="{% url 'core:project-detail' event.project.slug %}"><strong>{{ event.project }}</strong></a>
-                                    by {{ event.created_by.get_full_name }}
-                                </small>
-
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card mt-4">
-                <div class="card-header">
-                    Recently added projects
-                </div>
-                <ul class="list-group list-group-flush">
-                    {% for p in projects %}
-                        <li class="list-group-item">
-                            <a class="text-bold text-dark" href="{% url 'core:project-detail' p.slug %}">
-                               {{ p.title }}
-                            </a>
-                            <div class="project-status text-muted">
-                                <small>{{ p.type.name }},</small>
-                                <small>{{ p.status.name }}</small>
-                            </div>
-                            <div class="project-backers text-muted">
-                                <small>By</small>
-                                {% for b in p.backers.all %}
-                                    <small>{{ b }}</small>
-                                {% endfor %}
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <div class="card-footer">
-                    <a href="{% url 'core:project-list' %}">View all projects</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <ul>
+        {% for project in projects %}
+            <li>
+                {{ project.title }}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock content %}
